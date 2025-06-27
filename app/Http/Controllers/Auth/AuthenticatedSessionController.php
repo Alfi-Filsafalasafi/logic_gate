@@ -15,10 +15,10 @@ class AuthenticatedSessionController extends Controller
     public function authenticated(Request $request, $user)
     {
         if ($user->role === 'admin') {
-            return redirect()->intended('/admin/dashboard');
+            return redirect()->intended('/admin');
         }
 
-        return redirect()->intended('/user/dashboard');
+        return redirect()->intended('/user');
     }
 
     /**
@@ -41,10 +41,10 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         if ($user->role === 'admin') {
-            return redirect()->intended('/admin/dashboard');
+            return redirect()->intended('/admin');
         }
 
-        return redirect()->intended('/user/dashboard');
+        return redirect()->intended('/user');
 
     }
 

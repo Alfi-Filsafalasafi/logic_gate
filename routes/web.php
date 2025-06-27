@@ -2,9 +2,15 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MateriController;
+use App\Http\Controllers\Admin\LogMateriController;
+use App\Http\Controllers\Admin\AddController;
+use App\Http\Controllers\Admin\JobsheetController;
+use App\Http\Controllers\Admin\LogJobsheetController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
@@ -17,12 +23,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', fn () => view('admin.dashboard'));
+Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('materi', MateriController::class);
+    Route::resource('log-materi', LogMateriController::class);
+    Route::resource('add', AddController::class);
+    Route::resource('jobsheet', JobsheetController::class);
+    Route::resource('log-jobsheet', LogJobsheetController::class);
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
-    Route::get('/user/dashboard', fn () => view('user.dashboard'));
+    Route::get('/user', fn () => view('user.dashboard'));
 });
 
 require __DIR__.'/auth.php';
