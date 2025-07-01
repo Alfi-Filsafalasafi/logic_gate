@@ -12,8 +12,9 @@ use App\Http\Controllers\Api\LogJobsheetApiController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', [AuthController::class, 'profile']);
+    Route::get('/profile', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/materis', [MateriApiController::class, 'index']);
     Route::get('/materis/{id}', [MateriApiController::class, 'show']);

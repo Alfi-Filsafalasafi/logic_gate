@@ -10,37 +10,53 @@ use Illuminate\Support\Facades\Auth;
 
 class MateriApiController extends Controller
 {
-    public function index()
-    {
-        $user = Auth::user();
-        if (!$user) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-
-        $materis = Materi::all()->map(function ($materi) use ($user) {
-            $isAccessed = LogMateri::where('materi_id', $materi->id)
-                            ->where('user_id', $user->id)
-                            ->exists();
-
-            return [
-                'id' => $materi->id,
-                'title' => $materi->title,
-                'duration' => $materi->duration,
-                'konten' => $materi->konten,
-                'link_pdf' => $materi->link_pdf,
-                'accessed' => $isAccessed, // true/false
-            ];
-        });
-
-        return response()->json([
-            'message' => 'Materi list retrieved successfully.',
-            'data' => $materis
-        ]);
+    public function index(Request $request)
+{
+    $user = Auth::user();
+    if (!$user) {
+        return response()->json(['message' => 'Unauthorized'], 401);
     }
+
+    $search = $request->query('search'); // Ambil parameter ?search=...
+
+    // Query pencarian
+    $query = Materi::query();
+    if ($search) {
+        $query->where('title', 'like', '%' . $search . '%');
+    }
+
+    $materis = $query->get()->map(function ($materi) use ($user) {
+        $isAccessed = LogMateri::where('materi_id', $materi->id)
+                        ->where('user_id', $user->id)
+                        ->exists();
+
+        return [
+            'id' => $materi->id,
+            'title' => $materi->title,
+            'duration' => $materi->duration,
+            'konten' => $materi->konten,
+            'link_pdf' => $materi->link_pdf,
+            'accessed' => $isAccessed,
+        ];
+    });
+
+    return response()->json([
+        'message' => 'Materi list retrieved successfully.',
+        'data' => $materis
+    ]);
+}
+
 
     public function show($id)
     {
         $user = Auth::user();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Unauthorized. Please login first.'
+            ], 401);
+        }
+
         $materi = Materi::findOrFail($id);
 
         $isAccessed = LogMateri::where('materi_id', $materi->id)

@@ -10,7 +10,7 @@ class LogMateri extends Model
     use HasFactory;
     protected $table = 'log_materis';
 
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'materi_id'];
 
     public function user()
     {

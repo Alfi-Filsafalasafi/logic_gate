@@ -35,38 +35,73 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email'    => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-
-        $user = User::where('email', $request->email)->first();
-
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+        try {
+            // Manual validasi
+            $validator = \Validator::make($request->all(), [
+                'email'    => 'required|string|email',
+                'password' => 'required|string',
             ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Validation error',
+                    'errors'  => $validator->errors(),
+                ], 422);
+            }
+
+            $user = User::where('email', $request->email)->first();
+
+            if (! $user || ! \Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'message' => 'Login failed',
+                    'errors'  => ['email' => ['The provided credentials are incorrect.']],
+                ], 422);
+            }
+
+            if ($user->role !== 'user') {
+                return response()->json([
+                    'message' => 'Only user can login from mobile.'
+                ], 403);
+            }
+
+            $token = $user->createToken('mobile-token')->plainTextToken;
+
+            return response()->json([
+                'message' => 'Login success',
+                'user'    => $user,
+                'token'   => $token,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Internal server error',
+                'error'   => $e->getMessage(),
+            ], 500);
         }
-
-        if ($user->role !== 'user') {
-            return response()->json(['message' => 'Only user can login from mobile.'], 403);
-        }
-
-        $token = $user->createToken('mobile-token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Login success',
-            'user'    => $user,
-            'token'   => $token,
-        ]);
     }
+
 
     public function profile(Request $request)
     {
-        return response()->json([
-            'user' => $request->user()
-        ]);
+        try {
+            $user = $request->user();
+
+            if (!$user) {
+                return response()->json([
+                    'message' => 'Unauthenticated.'
+                ], 401);
+            }
+
+            return response()->json([
+                'user' => $user
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Internal server error',
+                'error'   => $e->getMessage(),
+            ], 500);
+        }
     }
+
 
     public function logout(Request $request)
     {

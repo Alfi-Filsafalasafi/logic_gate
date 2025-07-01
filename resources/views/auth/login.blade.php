@@ -31,7 +31,7 @@
                     <span class="navbar-text ms-auto">
                         @guest
                             <a class="mx-2" href="{{ route('login') }}">Login</a>
-                            <a class="mx-2" href="{{ route('register') }}">Register</a>
+                            {{-- <a class="mx-2" href="{{ route('register') }}">Register</a> --}}
                         @endguest
 
                         @auth
@@ -53,7 +53,7 @@
                             <div class="d-flex justify-content-center pb-4">
                                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                                     <img src="assets/img/logo.png" alt="">
-                                    <span class="d-none d-lg-block">Karyawan Outsourcing</span>
+                                    <span class="d-none d-lg-block">Logic Gate</span>
                                 </a>
                             </div><!-- End Logo -->
 
@@ -114,10 +114,10 @@
                                         </div>
 
                                         <!-- Link ke Halaman Lupa Password -->
-                                        <div class="col-12 text-center">
+                                        {{-- <div class="col-12 text-center">
                                             <p class="small mb-0">Belum punya akun? <a
                                                     href="{{ route('register') }}">Klik di sini</a></p>
-                                        </div>
+                                        </div> --}}
                                     </form>
                                 </div>
                             </div>
