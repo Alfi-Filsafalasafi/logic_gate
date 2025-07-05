@@ -26,6 +26,7 @@
                 <table class="table datatable">
                     <thead>
                         <tr>
+                            <th>Foto Profil</th>
                             <th>Nama</th>
                             <th>Email</th>
                             <th><i class="bi bi-gear"></i></th>
@@ -34,6 +35,15 @@
                     <tbody>
                         @foreach ($items as $item)
                             <tr>
+                                <td>
+                                    @if ($item->photo != null)
+                                        <img src="{{ asset('storage/' . $item->photo) }}" class="img-fluid" width="64"
+                                            alt="" srcset="">
+                                    @else
+                                        <img src="{{ asset('img/person-404.png') }}" class="img-fluid" width="64"
+                                            alt="">
+                                    @endif
+                                </td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>

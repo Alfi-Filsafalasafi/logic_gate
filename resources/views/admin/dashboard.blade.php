@@ -6,6 +6,7 @@
 @section('jobsheet', 'collapsed')
 @section('add', 'collapsed')
 @section('log-jobsheet', 'collapsed')
+@section('user', 'collapsed')
 @section('content')
     <section class="section dashboard">
         <div class="row">
