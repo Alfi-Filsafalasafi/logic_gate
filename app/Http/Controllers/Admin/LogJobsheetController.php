@@ -77,6 +77,6 @@ class LogJobsheetController extends Controller
     {
         $LogJobsheet = LogJobsheet::findOrFail($id);
         $LogJobsheet->delete();
-        return redirect()->route('log-jobsheet.index')->with('success', 'Deleted.');
+        return redirect()->route('admin.log-jobsheet.index')->with('success', 'Tugas siswa berhasil di hapus.');
     }
 }

@@ -24,6 +24,7 @@ class MateriApiController extends Controller
     if ($search) {
         $query->where('title', 'like', '%' . $search . '%');
     }
+    $query->orderBy('created_at', 'desc');
 
     $materis = $query->get()->map(function ($materi) use ($user) {
         $isAccessed = LogMateri::where('materi_id', $materi->id)
@@ -73,6 +74,14 @@ class MateriApiController extends Controller
                 'link_pdf' => $materi->link_pdf,
                 'accessed' => $isAccessed
             ]
+        ]);
+    }
+
+    public function new(){
+        $data = Materi::latest()->first();
+         return response()->json([
+            'message' => 'Materi list retrieved successfully.',
+            'materi' => $data->title ?? "Tidak ada",
         ]);
     }
 

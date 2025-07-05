@@ -7,6 +7,7 @@
 @section('jobsheet', 'collapsed')
 @section('add', 'collapsed')
 @section('log-jobsheet', '')
+@section('user', 'collapsed')
 
 @section('content')
     <div class="col-lg-12">
@@ -53,7 +54,15 @@
                                         class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-
+                                    <form method="POST" action="{{ route('admin.log-jobsheet.destroy', $item->id) }}"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-sm btn-danger btn-delete"
+                                            data-id="{{ $item->id }}">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

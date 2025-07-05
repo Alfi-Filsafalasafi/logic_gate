@@ -14,6 +14,13 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link @yield('user')" href="{{ route('admin.user.index') }}">
+                    <i class="bi bi-person"></i>
+                    <span>User</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link @yield('materi')" href="{{ route('admin.materi.index') }}">
                     <i class="bi bi-journal-text"></i>
                     <span>Materi</span>

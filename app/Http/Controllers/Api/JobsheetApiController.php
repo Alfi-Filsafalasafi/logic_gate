@@ -31,16 +31,19 @@ class JobsheetApiController extends Controller
                     'title' => $jobsheet->title,
                     'description' => $jobsheet->description,
                     'duration' => $jobsheet->duration,
-                    'status' => $log ? ($log->nilai !== null ? 'Sudah dinilai' : 'Sudah dikumpulkan') : 'Belum dikumpulkan',
-                    'nilai' => $log->nilai / 10 / 2,
+                    'status' => $log
+                        ? ($log->nilai !== null ? 'Sudah dinilai' : 'Sudah dikumpulkan')
+                        : 'Belum dikumpulkan',
+                    'nilai' => $log && $log->nilai !== null ? floatval($log->nilai / 10 / 2) : 0.0 + 0.0,
                     'link_pdf' => $log->link_pdf ?? null,
                 ];
+
             });
 
             return response()->json([
                 'message' => 'Jobsheet list with user status.',
                 'data' => $jobsheets
-            ]);
+            ], 200, [], JSON_PRESERVE_ZERO_FRACTION);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Internal server error',
@@ -72,9 +75,9 @@ class JobsheetApiController extends Controller
                 'description' => $jobsheet->description,
                 'duration' => $jobsheet->duration,
                 'status' => $log ? ($log->nilai !== null ? 'Sudah dinilai' : 'Sudah dikumpulkan') : 'Belum dikumpulkan',
-                'nilai' => $log->nilai,
+                'nilai' => $log && $log->nilai !== null ? floatval($log->nilai / 10 / 2) : 0.0 + 0.0,
                 'link_pdf' => $log->link_pdf ?? null,
-            ]);
+            ],200, [], JSON_PRESERVE_ZERO_FRACTION);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'message' => 'Jobsheet not found.'

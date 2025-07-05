@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LogMateriController;
 use App\Http\Controllers\Admin\AddController;
 use App\Http\Controllers\Admin\JobsheetController;
 use App\Http\Controllers\Admin\LogJobsheetController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -28,6 +29,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('materi', MateriController::class);
     Route::resource('log-materi', LogMateriController::class);
     Route::resource('add', AddController::class);
+    Route::resource('user', UserController::class);
     Route::resource('jobsheet', JobsheetController::class);
     Route::resource('log-jobsheet', LogJobsheetController::class);
 });
