@@ -25,7 +25,7 @@ class JobsheetController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'duration' => 'required|integer',
-            'link_pdf' => 'nullable|file|mimes:pdf|max:2048',
+            'link_pdf' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
         $data = $request->only(['title', 'description', 'duration']);
@@ -51,7 +51,7 @@ class JobsheetController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'duration' => 'required|integer',
-            'link_pdf' => 'nullable|file|mimes:pdf|max:2048',
+            'link_pdf' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
         $data = $request->only(['title', 'description', 'duration']);

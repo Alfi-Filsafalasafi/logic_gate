@@ -28,7 +28,7 @@ class LogJobsheetController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'jobsheet_id' => 'required|exists:jobsheets,id',
-            'link_pdf' => 'required|file|mimes:pdf|max:2048',
+            'link_pdf' => 'required|file|mimes:pdf|max:5120',
             'nilai' => 'nullable|integer',
             'status' => 'required|in:submitted,graded,pending',
         ]);

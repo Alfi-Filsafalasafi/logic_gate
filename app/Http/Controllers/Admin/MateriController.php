@@ -26,7 +26,7 @@ class MateriController extends Controller
             'title' => 'required|string|max:255',
             'duration' => 'required|string',
             'konten' => 'required|string',
-            'link_pdf' => 'nullable|file|mimes:pdf|max:2048',
+            'link_pdf' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
         if ($request->hasFile('link_pdf')) {
@@ -58,7 +58,7 @@ class MateriController extends Controller
             'title' => 'required|string|max:255',
             'duration' => 'required|string',
             'konten' => 'required|string',
-            'link_pdf' => 'nullable|file|mimes:pdf|max:2048',
+            'link_pdf' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
         $materi = Materi::findOrFail($id);

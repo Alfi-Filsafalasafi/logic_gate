@@ -14,7 +14,7 @@ class LogJobsheetApiController extends Controller
     {
         $request->validate([
             'jobsheet_id' => 'required|exists:jobsheets,id',
-            'file' => 'required|mimes:pdf|max:2048',
+            'file' => 'required|mimes:pdf|max:5120',
         ]);
 
         $user = Auth::user();
