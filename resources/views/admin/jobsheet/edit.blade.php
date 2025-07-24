@@ -27,7 +27,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('admin.jobsheet.update', $jobsheet->id) }}" method="POST" class="row g-3">
+                <form action="{{ route('admin.jobsheet.update', $jobsheet->id) }}" method="POST" class="row g-3" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -46,6 +46,12 @@
                     <div class="col-md-12">
                         <label for="description" class="form-label">Deskripsi</label>
                         <textarea name="description" class="form-control" rows="4" required>{{ old('description', $jobsheet->description) }}</textarea>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="link_pdf" class="form-label">Upload PDF Baru (opsional)</label>
+                        <input type="file" name="link_pdf" class="form-control" accept="application/pdf">
+                        <small class="text-muted">File saat ini: <a href="{{ asset('storage/' . $jobsheet->link_pdf) }}"
+                                target="_blank">Lihat PDF</a></small>
                     </div>
 
                     <div class="text-start">

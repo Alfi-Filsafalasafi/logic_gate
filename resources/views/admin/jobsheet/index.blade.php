@@ -29,6 +29,7 @@
                             <th>Judul</th>
                             <th>Deskripsi</th>
                             <th>Durasi</th>
+                            <th>Link Pdf</th>
                             <th><i class="bi bi-gear"></i></th>
                         </tr>
                     </thead>
@@ -38,6 +39,35 @@
                                 <td>{{ $item->title }}</td>
                                 <td>{{ Str::limit($item->description, 50) }}</td>
                                 <td>{{ $item->duration }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                        data-bs-target="#pdfModal{{ $item->id }}">
+                                        <i class="bi bi-eye"></i> Lihat pdf
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="pdfModal{{ $item->id }}" tabindex="-1"
+                                        aria-labelledby="pdfModalLabel{{ $item->id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="pdfModalLabel{{ $item->id }}">Konten
+                                                        Jobsheet: {{ $item->title }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <iframe src="{{ asset('storage/' . $item->link_pdf) }}" width="100%"
+                                                        height="500px" style="border: none;"></iframe>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.jobsheet.edit', $item->id) }}" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil"></i>

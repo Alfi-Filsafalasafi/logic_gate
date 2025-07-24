@@ -27,7 +27,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('admin.jobsheet.store') }}" method="POST" class="row g-3">
+                <form action="{{ route('admin.jobsheet.store') }}" method="POST" class="row g-3" enctype="multipart/form-data" >
                     @csrf
 
                     <div class="col-md-6">
@@ -43,6 +43,10 @@
                     <div class="col-md-12">
                         <label for="description" class="form-label">Deskripsi</label>
                         <textarea name="description" class="form-control" rows="4" required>{{ old('description') }}</textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="duration" class="form-label">Upload PDf</label>
+                        <input type="file" name="link_pdf" class="form-control" value="{{ old('link_pdf') }}">
                     </div>
 
                     <div class="text-start">

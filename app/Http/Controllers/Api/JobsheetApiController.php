@@ -31,6 +31,7 @@ class JobsheetApiController extends Controller
                     'title' => $jobsheet->title,
                     'description' => $jobsheet->description,
                     'duration' => $jobsheet->duration,
+                    'jobsheet_link_pdf' => $jobsheet->link_pdf,
                     'status' => $log
                         ? ($log->nilai !== null ? 'Sudah dinilai' : 'Sudah dikumpulkan')
                         : 'Belum dikumpulkan',
@@ -74,6 +75,7 @@ class JobsheetApiController extends Controller
                 'title' => $jobsheet->title,
                 'description' => $jobsheet->description,
                 'duration' => $jobsheet->duration,
+                'jobsheet_link_pdf' => $jobsheet->link_pdf,
                 'status' => $log ? ($log->nilai !== null ? 'Sudah dinilai' : 'Sudah dikumpulkan') : 'Belum dikumpulkan',
                 'nilai' => $log && $log->nilai !== null ? floatval($log->nilai / 10 / 2) : 0.0 + 0.0,
                 'link_pdf' => $log->link_pdf ?? null,

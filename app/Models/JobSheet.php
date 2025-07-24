@@ -9,5 +9,5 @@ class Jobsheet extends Model
 {
     use HasFactory;
     protected $table = 'jobsheets';
-    protected $fillable = ['title', 'description', 'duration'];
+    protected $fillable = ['title', 'description', 'duration', 'link_pdf'];
 }
