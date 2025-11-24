@@ -8,6 +8,7 @@
 @section('user', '')
 @section('add', 'collapsed')
 @section('log-jobsheet', 'collapsed')
+@section('quiz', 'collapsed')
 
 @section('content')
     <div class="col-lg-12">

@@ -41,6 +41,13 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link @yield('quiz')" href="{{ route('admin.quiz.index') }}">
+                    <i class="bi bi-lightbulb"></i>
+                    <span>Kuis</span>
+                </a>
+            </li>
+
             <p class="mt-4 text-uppercase text-muted small px-3">Pengumpulan</p>
 
             <li class="nav-item">

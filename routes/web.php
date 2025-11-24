@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LogMateriController;
 use App\Http\Controllers\Admin\AddController;
 use App\Http\Controllers\Admin\JobsheetController;
 use App\Http\Controllers\Admin\LogJobsheetController;
+use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
@@ -32,6 +33,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('user', UserController::class);
     Route::resource('jobsheet', JobsheetController::class);
     Route::resource('log-jobsheet', LogJobsheetController::class);
+    Route::resource('quiz', QuizController::class);
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
